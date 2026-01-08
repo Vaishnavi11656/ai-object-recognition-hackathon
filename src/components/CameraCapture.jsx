@@ -44,7 +44,8 @@ const CameraCapture = () => {
       const base64Data = imageBase64.split(",")[1]; // Remove base64 header
 
       const response = await fetch(
-        "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyBRU112C2jAplzUnagzlgNi9w1wHQQklII",
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`,
+
         {
           method: "POST", // API method
           headers: { "Content-Type": "application/json" }, // JSON request
@@ -100,60 +101,60 @@ const CameraCapture = () => {
   };
 
   return (
-<div className="min-h-screen bg-background px-4 py-8 md:py-12"> {/* Page wrapper */}
-  <div className="max-w-6xl mx-auto"> {/* Content container */}
+    <div className="min-h-screen bg-background px-4 py-8 md:py-12"> {/* Page wrapper */}
+      <div className="max-w-6xl mx-auto"> {/* Content container */}
 
-    <div className={`flex flex-col lg:flex-row gap-10 ${image || description ? "justify-between" : "justify-center"}`}> {/* Flex layout */}
+        <div className={`flex flex-col lg:flex-row gap-10 ${image || description ? "justify-between" : "justify-center"}`}> {/* Flex layout */}
 
-      {/* LEFT SIDE — Camera Section */}
-      <div className="w-full lg:w-[45%] space-y-8">
+          {/* LEFT SIDE — Camera Section */}
+          <div className="w-full lg:w-[45%] space-y-8">
 
-        {/* Header */}
-        <div className="text-center space-y-3">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 glow-effect mb-2">
-            <Scan className="w-7 h-7 text-primary" /> {/* Scan icon */}
+            {/* Header */}
+            <div className="text-center space-y-3">
+              <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 glow-effect mb-2">
+                <Scan className="w-7 h-7 text-primary" /> {/* Scan icon */}
+              </div>
+              <h1 className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight">
+                Accio Recognition
+              </h1>
+              <p className="text-muted-foreground text-sm md:text-base max-w-md mx-auto">
+                Point your camera at any object and let AI describe what it sees
+              </p>
+            </div>
+
+            {/* Live camera feed */}
+            <VideoFeed videoRef={videoRef} />
+
+            {/* Capture and reset buttons */}
+            <CaptureButtons
+              onCapture={handleCapture}
+              onReset={handleReset}
+              loading={loading}
+              image={image}
+            />
+
+            {/* Hidden canvas for image capture */}
+            <canvas ref={canvasRef} className="hidden" />
+
           </div>
-          <h1 className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight">
-            Accio Recognition
-          </h1>
-          <p className="text-muted-foreground text-sm md:text-base max-w-md mx-auto">
-            Point your camera at any object and let AI describe what it sees
-          </p>
+
+          {/* RIGHT SIDE — Result Section */}
+          {(image || description) && (
+            <div className="w-full lg:w-[45%] space-y-4">
+
+              {/* Captured image preview */}
+              <CapturedImage image={image} />
+
+              {/* AI description with voice highlight */}
+              <Description description={description} />
+
+            </div>
+          )}
+
         </div>
-
-        {/* Live camera feed */}
-        <VideoFeed videoRef={videoRef} />
-
-        {/* Capture and reset buttons */}
-        <CaptureButtons 
-          onCapture={handleCapture} 
-          onReset={handleReset} 
-          loading={loading} 
-          image={image} 
-        />
-
-        {/* Hidden canvas for image capture */}
-        <canvas ref={canvasRef} className="hidden" />
 
       </div>
-
-      {/* RIGHT SIDE — Result Section */}
-      {(image || description) && (
-        <div className="w-full lg:w-[45%] space-y-4">
-
-          {/* Captured image preview */}
-          <CapturedImage image={image} />
-
-          {/* AI description with voice highlight */}
-          <Description description={description} />
-
-        </div>
-      )}
-
     </div>
-
-  </div>
-</div>
   );
 };
 
