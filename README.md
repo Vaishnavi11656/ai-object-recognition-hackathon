@@ -1,16 +1,37 @@
-# React + Vite
+# AI-Based Object Recognition Web Application (Hackathon Project)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project was developed as part of a hackathon. The application captures objects using a device camera and provides meaningful information in both text and audio formats.
 
-Currently, two official plugins are available:
+## Problem Statement
+Build a web application that recognizes an object placed in front of a camera and provides meaningful information about that object in both text and audio formats.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- Accesses the device camera to capture objects
+- Captures images using live camera feed
+- Sends the captured image to an external AI service (Gemini Vision API)
+- Displays object details in readable text format
+- Plays the same information as audio using Text-to-Speech
+- Ensures synchronization between displayed text and audio output
+- Clean and beginner-friendly user interface
 
-## React Compiler
+## Tech Stack
+- React.js
+- JavaScript
+- HTML, CSS
+- Gemini AI API
+- Web Speech API
+- Vite
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## User Flow
+1. User opens the application
+2. User allows camera access
+3. User places an object in front of the camera
+4. Application captures the object
+5. AI analyzes the image
+6. Object details are displayed as text
+7. The same details are played as voice output
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## How to Run the Project
+```bash
+npm install
+npm run dev
